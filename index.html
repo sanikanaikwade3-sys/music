@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+   <style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    min-height:100vh;
+    font-family:Arial,sans-serif;
+
+    background-image:url("https://img.goodfon.com/original/1920x1080/b/b6/music-musical-instrument-guitar-two-dark-background.jpg");
+    background-size:cover;
+    background-position:center;
+    background-repeat:no-repeat;
+}
+
+/* Laptop Layout */
+
+.sidebar{
+    width:35%;
+    min-height:100vh;
+
+    background:rgba(0,0,0,0.8);
+
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+
+    backdrop-filter:blur(5px);
+}
+
+h1{
+    color:white;
+    margin-bottom:40px;
+    letter-spacing:3px;
+    text-align:center;
+}
+
+h1 span{
+    color:#1DB954;
+}
+
+.controls{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:15px;
+
+    margin-bottom:25px;
+}
+
+.volume{
+    display:flex;
+    gap:15px;
+}
+
+button{
+    width:70px;
+    height:70px;
+
+    border:none;
+    border-radius:50%;
+
+    background:#1DB954;
+    color:white;
+
+    font-size:24px;
+    cursor:pointer;
+
+    transition:0.3s;
+}
+
+button:hover{
+    transform:scale(1.1);
+    background:#1ed760;
+}
+
+#btnPlay{
+    width:90px;
+    height:90px;
+    font-size:34px;
+}
+
+/* Mobile Layout */
+
+@media(max-width:768px){
+
+    body{
+        display:flex;
+        justify-content:center;
+        align-items:center;
+    }
+
+    .sidebar{
+        width:100%;
+        min-height:100vh;
+        padding:20px;
+    }
+
+    h1{
+        font-size:32px;
+        margin-bottom:30px;
+    }
+
+    .controls{
+        display:grid;
+        grid-template-columns:repeat(3,1fr);
+        gap:15px;
+
+        width:100%;
+        max-width:280px;
+
+        justify-items:center;
+    }
+
+    .volume{
+        margin-top:20px;
+        justify-content:center;
+    }
+
+    button{
+        width:55px;
+        height:55px;
+        font-size:18px;
+    }
+
+    #btnPlay{
+        width:75px;
+        height:75px;
+        font-size:28px;
+    }
+}
+
+</style>
+</head>
+<body>
+    <div class="sidebar">
+    <h1>MUSIC <span>PLAYER</span></h1>
+
+    <div class="controls">
+        <button id="btnPrevious">⏮</button>
+        <button id="btnPlay">▶</button>
+        <button id="btnPause">⏸</button>
+        <button id="btnStop">⏹</button>
+        <button id="btnNext">⏭</button>
+    </div>
+
+    <div class="volume">
+        <button id="btnVolumDown">🔉</button>
+        <button id="btnVolumUp">🔊</button>
+    </div>
+</div>
+    <script>
+        const songs = ["audio.mpeg" , "audio2.mpeg" , "audio3.mpeg"];
+        let currentSong = 0;
+
+        const audioPlayer = new Audio(songs[currentSong]);
+        const btnplay = document.getElementById("btnPlay");
+        const btnStop = document.getElementById("btnStop");
+        const btnPause =document.getElementById("btnPause");
+        const btnVolumUp = document.getElementById("btnVolumUp");
+        const btnVolumDown = document.getElementById("btnVolumDown");
+        const btnNext = document.getElementById("btnNext");
+        const btnPrevious = document.getElementById("btnPrevious")
+
+        btnplay.addEventListener("click" , (e) => {
+            audioPlayer.play();
+        });
+
+        btnStop.addEventListener("click" , (e) => {
+            audioPlayer.pause();
+            audioPlayer.currentTime =0;
+        });
+
+        btnPause.addEventListener("click" , (e) => {
+            audioPlayer.pause();
+        });
+
+        btnVolumUp.addEventListener("click" , (e)  => { 
+            audioPlayer.volume += .1;
+        });
+
+        btnVolumDown.addEventListener("click" , (e) => {
+            audioPlayer.volume -= 0.1;
+        });
+
+        btnNext.addEventListener("click" , (e) =>{
+            currentSong++;
+
+            if(currentSong >= songs.length){
+                currentSong =0;
+            }
+            audioPlayer.src= songs[currentSong];
+            audioPlayer.play();
+        });
+
+        btnPrevious.addEventListener("click" ,(e) =>{
+            currentSong--;
+
+            if(currentSong < 0){
+                currentSong =0;
+            }
+
+            audioPlayer.src=songs[currentSong];
+            audioPlayer.play();
+        })
+
+    </script>
+</body>
+</html>
