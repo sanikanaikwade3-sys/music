@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+   <style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
+}
+
+body{
+    min-height:100vh;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    background-image:url("https://img.goodfon.com/original/1920x1080/b/b6/music-musical-instrument-guitar-two-dark-background.jpg");
+    background-size:cover;
+    background-position:center;
+    background-repeat:no-repeat;
+}
+
+.sidebar{
+    width:90%;
+    max-width:400px;
+
+    background:rgba(0,0,0,0.8);
+    backdrop-filter:blur(8px);
+
+    border-radius:20px;
+
+    padding:30px 20px;
+
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+
+    box-shadow:0 0 20px rgba(0,0,0,0.5);
+}
+
+h1{
+    color:white;
+    text-align:center;
+    margin-bottom:30px;
+    font-size:30px;
+}
+
+h1 span{
+    color:#1DB954;
+}
+
+.controls{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:12px;
+
+    margin-bottom:25px;
+}
+
+.volume{
+    display:flex;
+    justify-content:center;
+    gap:15px;
+}
+
+button{
+    width:60px;
+    height:60px;
+
+    border:none;
+    border-radius:50%;
+
+    background:#1DB954;
+    color:white;
+
+    font-size:22px;
+    cursor:pointer;
+
+    transition:0.3s;
+}
+
+button:hover{
+    transform:scale(1.1);
+}
+
+#btnPlay{
+    width:80px;
+    height:80px;
+    font-size:30px;
+}
+
+/* Small phones */
+
+@media(max-width:480px){
+
+    .sidebar{
+        width:95%;
+        padding:20px 10px;
+    }
+
+    h1{
+        font-size:24px;
+    }
+
+    button{
+        width:50px;
+        height:50px;
+        font-size:18px;
+    }
+
+    #btnPlay{
+        width:70px;
+        height:70px;
+        font-size:26px;
+    }
+
+    .controls{
+        gap:8px;
+    }
+
+    .volume{
+        gap:10px;
+    }
+}
+
+</style>
+</head>
+<body>
+    <div class="sidebar">
+    <h1>MUSIC <span>PLAYER</span></h1>
+
+    <div class="controls">
+        <button id="btnPrevious">⏮</button>
+        <button id="btnPlay">▶</button>
+        <button id="btnPause">⏸</button>
+        <button id="btnStop">⏹</button>
+        <button id="btnNext">⏭</button>
+    </div>
+
+    <div class="volume">
+        <button id="btnVolumDown">🔉</button>
+        <button id="btnVolumUp">🔊</button>
+    </div>
+</div>
+    <script>
+        const songs = ["audio.mpeg" , "audio2.mpeg" , "audio3.mpeg"];
+        let currentSong = 0;
+
+        const audioPlayer = new Audio(songs[currentSong]);
+        const btnplay = document.getElementById("btnPlay");
+        const btnStop = document.getElementById("btnStop");
+        const btnPause =document.getElementById("btnPause");
+        const btnVolumUp = document.getElementById("btnVolumUp");
+        const btnVolumDown = document.getElementById("btnVolumDown");
+        const btnNext = document.getElementById("btnNext");
+        const btnPrevious = document.getElementById("btnPrevious")
+
+        btnplay.addEventListener("click" , (e) => {
+            audioPlayer.play();
+        });
+
+        btnStop.addEventListener("click" , (e) => {
+            audioPlayer.pause();
+            audioPlayer.currentTime =0;
+        });
+
+        btnPause.addEventListener("click" , (e) => {
+            audioPlayer.pause();
+        });
+
+        btnVolumUp.addEventListener("click" , (e)  => { 
+            audioPlayer.volume += .1;
+        });
+
+        btnVolumDown.addEventListener("click" , (e) => {
+            audioPlayer.volume -= 0.1;
+        });
+
+        btnNext.addEventListener("click" , (e) =>{
+            currentSong++;
+
+            if(currentSong >= songs.length){
+                currentSong =0;
+            }
+            audioPlayer.src= songs[currentSong];
+            audioPlayer.play();
+        });
+
+        btnPrevious.addEventListener("click" ,(e) =>{
+            currentSong--;
+
+            if(currentSong < 0){
+                currentSong =0;
+            }
+
+            audioPlayer.src=songs[currentSong];
+            audioPlayer.play();
+        })
+
+    </script>
+</body>
+</html>
